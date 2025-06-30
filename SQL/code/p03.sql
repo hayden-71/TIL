@@ -8,9 +8,10 @@
 USE practice;
 DESC userinfo;
 SELECT * FROM userinfo;
-ALTER TABLE userinfo ADD COLUMN email VARCHAR(40);
-ALTER TABLE userinfo
-ALTER COLUMN email SET DEFAULT 'ex@gmail.com';
+ALTER TABLE userinfo ADD COLUMN email VARCHAR(40) DEFAULT 'ex@gmail.com';
+-- ALTER TABLE userinfo ALTER COLUMN email DEFAULT 'ex@gmail.com';
+ALTER TABLE userinfo DROP COLUMN email;
+
 ALTER TABLE userinfo MODIFY nickname VARCHAR(100);
 ALTER TABLE userinfo DROP COLUMN reg_date;
 
