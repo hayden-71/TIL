@@ -19,8 +19,8 @@ SELECT
     
 -- 부분 문자열 추출 (문자열, 시작점, 길이)
 SELECT substring('hello sql!', 2, 4);
-SELECT LEFT('hello sql!', 5);
-SELECT right('hello sql!', 5);
+SELECT LEFT('hello sql!!', 5);
+SELECT right('hello sql!!', 5);
 
 
 SELECT * FROM dt_demo;

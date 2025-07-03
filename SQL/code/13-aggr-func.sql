@@ -1,9 +1,9 @@
--- 13-aggr-func
+-- 13-aggr-func 집계 함수
 
 USE lecture;
 SELECT * FROM sales;
 
--- COUNT
+-- COUNT 행 개수 세기
 SELECT COUNT(id) AS 매출건수
 FROM sales;
 
@@ -17,14 +17,14 @@ FROM sales;
 -- SUM (총합)
 SELECT
 	-- 천 단위 , 찍기~~
-	FORMAT(SUM(total_amount), 0) AS 총매출,
+	FORMAT(SUM(total_amount), 0) AS 총매출, -- FORMAT(데이터, 소수점_자릿수)
 	SUM(total_amount) AS 총매출액,
     SUM(quantity) AS 총판매수량
 FROM sales;
 
 -- 적당한 데이터량일 때는 문제 없음
 SELECT
-	SUM(IF(region='서울', total_amount, 0)) AS 서울매출, -- 지역이 서울일때, 토탈가격, 아니면 0으로 가져와
+	SUM(IF(region='서울', total_amount, 0)) AS 서울매출, -- IF(조건, 토탈가격, 아니면 0으로 가져와
     SUM(IF(category='전자제품', total_amount, 0)) AS 전자매출
 FROM sales;
 

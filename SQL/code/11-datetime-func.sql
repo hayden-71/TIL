@@ -3,7 +3,6 @@
 USE lecture;
 SELECT * FROM dt_demo;
 DESC dt_demo;
-DROP dt_demo;
 
 
 CREATE TABLE dt_demo (
@@ -27,11 +26,6 @@ VALUES
 
 -- 데이터 확인
 SELECT * FROM dt_demo;
-
-
-
-
-
 
 
 
@@ -71,12 +65,12 @@ SELECT
 SELECT
 	name,
     birth,
-    datediff(curdate(), birth) AS 살아온날들,
-    -- timestampdiff (결과 단위, 날짜1, 날짜2)
+    datediff(curdate(), birth) AS 살아온날들, -- DATEDIFF(날짜1, 날짜2) 날짜1-날짜2
+    -- timestampdiff (결과 단위, 날짜1, 날짜2) 순서가 날짜2-날짜1임
     timestampdiff(YEAR, birth, curdate()) AS 나이
 FROM dt_demo;
 
--- 더하기/빼기
+-- 더하기/빼기 DATE_ADD(기준날짜, INTERVAL 값 단위):
 SELECT
 	name, birth,
     date_add(birth, interval 100 day) AS 백일후,
@@ -94,7 +88,7 @@ FROM dt_demo;
 -- 날짜 추출
 select
 	name, birth,
-    -- birth -> date정보
+    -- birth -> 시간은 없는 date정보
     YEAR(birth),
     MONTH(birth),
     DAY(birth),
@@ -110,6 +104,3 @@ SELECT
 FROM dt_demo
 GROUP BY year(birth)
 ORDER BY 출생년도;
-
-SELECT
-	year(birth) DIV 10

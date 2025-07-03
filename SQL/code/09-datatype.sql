@@ -1,6 +1,5 @@
 USE lecture;
 
-DROP TABLE dt_demo;
 CREATE TABLE dt_demo (
 	id 		INT 		AUTO_INCREMENT PRIMARY KEY,
 	name	 VARCHAR(20) NOT NULL,
