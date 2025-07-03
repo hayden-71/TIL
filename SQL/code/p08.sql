@@ -11,7 +11,7 @@ SELECT * FROM sales
 WHERE total_amount >= (SELECT AVG(total_amount) FROM sales);
 
 -- 1-2. 최고 매출 지역|의 모든 주문들
--- 최고 매출 지역? -- 각 지역별 매출 총합
+	-- 최고 매출 지역? -- 각 지역별 매출 총합
 SELECT region, SUM(total_amount)
 FROM sales
 GROUP BY region;

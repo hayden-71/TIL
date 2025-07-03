@@ -20,23 +20,19 @@ SELECT
   c.customer_name,
   c.customer_type
 FROM customers c
-INNER JOIN sales s ON c.customer_id = s.customer_id
+JOIN sales s ON c.customer_id = s.customer_id
 where s.total_amount >= 500000
 ORDER BY s.total_amount DESC;
 
 -- 모든 고객의 구매 현황 분석 (구매를 하지 않았어도 분석)
 -- LEFT JOIN -> 왼쪽 테이블(c)의 모든 데이터와 + 매칭되는 오른쪽 데이터 | 매칭되는 오른쪽 데이터가 '없어도 등장'
-SELECT
-	c.customer_id,
-    c.customer_name,
-    c.customer_type,
-    COUNT(*) AS 주문회수,
-    SUM(s.total_amount) AS 총구매액
-FROM customers c 
-JOIN sales s ON c.customer_id = s.customer_id -- WHERE s.id IS NULL -> 한번도 주문한 적 없는 사람들
-GROUP BY c.customer_id, c.customer_name, c.customer_type;
+SELECT *
+FROM customers c
+LEFT JOIN sales s ON c.customer_id = s.customer_id;  
+-- WHERE s.id IS NULL;  -> 한번도 주문한적 없는 사람들이 나온다;
 
--- ------- 복습
+
+-- ------------------- 복습
 SELECT
 	customer_id,
     count(*) AS 구매건수,
