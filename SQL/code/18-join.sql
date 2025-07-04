@@ -3,16 +3,11 @@
 USE lecture;
 
 -- 비효율
-SELECT
-  *,
-  (
-    SELECT customer_name FROM customers c
-    WHERE c.customer_id=s.customer_id
-  ) AS 주문고객이름,
-  (
-    SELECT customer_type FROM customers c
-    WHERE c.customer_id=s.customer_id
-  ) AS 고객등급
+SELECT *,
+  (    SELECT customer_name FROM customers c
+    WHERE c.customer_id=s.customer_id) AS 주문고객이름,
+  (    SELECT customer_type FROM customers c
+    WHERE c.customer_id=s.customer_id) AS 고객등급
 FROM sales s;
 
 -- JOIN 테이블과 테이블 합치기
@@ -65,3 +60,32 @@ SELECT
 FROM customers c
 LEFT JOIN sales s ON c.customer_id = s.customer_id
 GROUP BY c.customer_id;
+
+
+-- INNER JOIN 교집합
+SELECT
+	'1. INNER JOIN' AS 구분,
+    COUNT(*) AS 줄수,
+    COUNT(DISTINCT c.customer_id) AS 고객수
+FROM customers c
+INNER JOIN sales s ON c.customer_id = s.customer_id
+
+UNION -- 단순 결과 합치기
+
+-- LEFT JOIN 왼쪽(from 뒤에 온) 테이블은 무조건 다 나옴
+SELECT
+	'2. LEFT JOIN' AS 구분,
+	COUNT(*) AS 줄수,
+    COUNT(DISTINCT c.customer_id) AS 고객수
+FROM customers c
+LEFT JOIN sales s ON c.customer_id = s.customer_id
+
+UNION
+
+SELECT
+	'3. 전체고객수' AS 구분,
+    count(*) AS 행수,
+    count(*) AS 고객수
+from customers;
+
+
