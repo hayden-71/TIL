@@ -44,6 +44,23 @@ ORDER BY 고객수 DESC
 -- products 테이블과 orders 테이블을 JOIN하세요
 -- 카테고리별로 정렬하되, 각 카테고리 내에서는 매출액 순으로 정렬하세요
 
+with 카테고리별 as (
+SELECT
+ p.category as 카테고리,
+ p.product_name as 제품명,
+ sum(o.quantity) as 총판매량,
+ sum(o.amount) as 총매출액,
+ avg(o.amount) as 평균주문금액
+from products p
+inner join orders o on p.product_id = o.product_id
+group by p.category, p.product_name
+)
+SELECT
+	카테고리, 제품명, 총판매량, 총매출액, 평균주문금액
+from 카테고리별
+order by 카테고리, 총매출액 desc;
+
+-- 
 
 WITH product_sales AS (
 -- 상품별 판매통계
@@ -85,7 +102,7 @@ WITH product_sales AS ( -- with 이름 as 뽑을 데이터
 FROM products p
 LEFT JOIN orders o ON p.product_id = o.product_id
 GROUP BY p.category, p.product_name, p.price
-),
+), 		-- 두번째 CTE 시작
 category_total AS (
 	select
 		카테고리,
@@ -93,7 +110,7 @@ category_total AS (
 	from product_sales -- 위에서 쓴 CTE를 바로 쓸 수 있다~~!!
 	group by 카테고리
 )
-SELECT -- 프레젠테이션
+SELECT 	-- 프레젠테이션
 	ps.카테고리,
 	ps.제품명,
 	ps.제품총매출액,
